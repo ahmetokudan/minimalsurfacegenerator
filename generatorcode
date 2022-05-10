@@ -1,0 +1,611 @@
+# Python Script, API Version = V21
+# Python Script, API Version = V20
+
+ClearAll()
+kureyaricap = 6.0
+offset = 5.0
+middleoffset = 4.0
+innerrad= 2.0
+solidify = 0.5
+wallthickness = 2
+xcount = 3
+ycount= 3
+zcount= 3
+
+# Create Sphere
+SphereBody.Create(Point.Create(MM(0), MM(0), MM(0)), Point.Create(MM(kureyaricap), MM(0), MM(0)), ExtrudeType.None)
+# EndBlock
+
+# Solidify Sketch
+mode = InteractionMode.Solid
+result = ViewHelper.SetViewMode(mode, None)
+# EndBlock
+
+# Create Datum Plane
+selection = Selection.Create(GetRootPart().CoordinateSystems[0].Axes[1])
+result = DatumPlaneCreator.Create(selection, False, None)
+# EndBlock
+
+# Slice Bodies by Plane
+selection = BodySelection.Create(GetRootPart().Bodies[0])
+datum = Selection.Create(GetRootPart().DatumPlanes[0])
+result = SplitBody.ByCutter(selection, datum)
+# EndBlock
+
+
+# Copy items
+result = Copy.Execute(FaceSelection.Create([GetRootPart().Bodies[1].Faces[1],
+    GetRootPart().Bodies[0].Faces[1]]))
+# EndBlock
+
+# Delete Selection
+selection = BodySelection.Create([GetRootPart().Bodies[0],
+    GetRootPart().Bodies[1]])
+result = Delete.Execute(selection)
+# EndBlock
+
+# Translate Along Z Handle
+selection = Selection.Create(GetRootPart().DatumPlanes[0])
+direction = Move.GetDirection(selection)
+options = MoveOptions()
+options.Copy = True
+result = Move.Translate(selection, direction, MM(offset), options)
+# EndBlock
+
+# Translate Along Z Handle
+selection = Selection.Create(GetRootPart().DatumPlanes[0])
+direction = Move.GetDirection(selection)
+options = MoveOptions()
+options.Copy = True
+result = Move.Translate(selection, direction, MM(-offset), options)
+# EndBlock
+
+# Rotate About X Handle
+selection = Selection.Create(GetRootPart().DatumPlanes[0])
+axis = Move.GetAxis(selection, HandleAxis.X)
+options = MoveOptions()
+options.Copy = True
+result = Move.Rotate(selection, axis, DEG(90.0000000000002), options)
+# EndBlock
+
+# Translate Along Z Handle
+selection = Selection.Create(GetRootPart().DatumPlanes[3])
+direction = Move.GetDirection(selection)
+options = MoveOptions()
+options.Copy = True
+result = Move.Translate(selection, direction, MM(offset), options)
+# EndBlock
+
+# Translate Along Z Handle
+selection = Selection.Create(GetRootPart().DatumPlanes[3])
+direction = Move.GetDirection(selection)
+options = MoveOptions()
+options.Copy = True
+result = Move.Translate(selection, direction, MM(-offset), options)
+# EndBlock
+
+# Rotate About Y Handle
+selection = Selection.Create(GetRootPart().DatumPlanes[0])
+axis = Move.GetAxis(selection, HandleAxis.Y)
+options = MoveOptions()
+options.Copy = True
+result = Move.Rotate(selection, axis, DEG(90.0000000000002), options)
+# EndBlock
+
+# Translate Along Z Handle
+selection = Selection.Create(GetRootPart().DatumPlanes[6])
+direction = Move.GetDirection(selection)
+options = MoveOptions()
+options.Copy = True
+result = Move.Translate(selection, direction, MM(offset), options)
+# EndBlock
+
+# Translate Along Z Handle
+selection = Selection.Create(GetRootPart().DatumPlanes[6])
+direction = Move.GetDirection(selection)
+options = MoveOptions()
+options.Copy = True
+result = Move.Translate(selection, direction, MM(-offset), options)
+# EndBlock
+
+# Slice Bodies by Plane
+selection = BodySelection.Create(GetRootPart().Bodies[0])
+datum = Selection.Create(GetRootPart().DatumPlanes[1])
+result = SplitBody.ByCutter(selection, datum)
+# EndBlock
+
+# Delete Objects
+selection = BodySelection.Create(GetRootPart().Bodies[0])
+result = Combine.RemoveRegions(selection)
+# EndBlock
+
+
+# Merge Bodies
+targets = BodySelection.Create(GetRootPart().Bodies[1])
+tools = BodySelection.Create(GetRootPart().Bodies[0])
+result = Combine.Merge(targets, tools)
+# EndBlock
+
+# Slice Bodies by Plane
+selection = BodySelection.Create(GetRootPart().Bodies[0])
+datum = Selection.Create(GetRootPart().DatumPlanes[5])
+result = SplitBody.ByCutter(selection, datum)
+# EndBlock
+
+# Delete Objects
+selection = BodySelection.Create(GetRootPart().Bodies[1])
+result = Combine.RemoveRegions(selection)
+# EndBlock
+
+# Slice Bodies by Plane
+selection = BodySelection.Create(GetRootPart().Bodies[0])
+datum = Selection.Create(GetRootPart().DatumPlanes[4])
+result = SplitBody.ByCutter(selection, datum)
+# EndBlock
+
+# Delete Objects
+selection = BodySelection.Create(GetRootPart().Bodies[0])
+result = Combine.RemoveRegions(selection)
+# EndBlocksd
+
+# Slice Bodies by Plane
+selection = BodySelection.Create(GetRootPart().Bodies[0])
+datum = Selection.Create(GetRootPart().DatumPlanes[2])
+result = SplitBody.ByCutter(selection, datum)
+# EndBlock
+
+# Delete Objects
+selection = BodySelection.Create(GetRootPart().Bodies[1])
+result = Combine.RemoveRegions(selection)
+# EndBlock
+
+# Slice Bodies by Plane
+selection = BodySelection.Create(GetRootPart().Bodies[0])
+datum = Selection.Create(GetRootPart().DatumPlanes[7])
+result = SplitBody.ByCutter(selection, datum)
+# EndBlock
+
+# Delete Objects
+selection = BodySelection.Create(GetRootPart().Bodies[0])
+result = Combine.RemoveRegions(selection)
+# EndBlock
+
+# Slice Bodies by Plane
+selection = BodySelection.Create(GetRootPart().Bodies[0])
+datum = Selection.Create(GetRootPart().DatumPlanes[8])
+result = SplitBody.ByCutter(selection, datum)
+# EndBlock
+
+# Delete Objects
+selection = BodySelection.Create(GetRootPart().Bodies[1])
+result = Combine.RemoveRegions(selection)
+# EndBlock
+
+
+# Delete Selection
+selection = Selection.Create([GetRootPart().DatumPlanes[0],
+    GetRootPart().DatumPlanes[1],
+    GetRootPart().DatumPlanes[2],
+    GetRootPart().DatumPlanes[3],
+    GetRootPart().DatumPlanes[4],
+    GetRootPart().DatumPlanes[5],
+    GetRootPart().DatumPlanes[6],
+    GetRootPart().DatumPlanes[7],
+    GetRootPart().DatumPlanes[8]])
+result = Delete.Execute(selection)
+# EndBlock
+
+
+# Copy items1
+result = Copy.Execute(EdgeSelection.Create(GetRootPart().Bodies[0].Edges[1]))
+# EndBlock
+
+# Extrude 1 Edge
+selection = Selection.Create(GetRootPart().Curves[0])
+options = ExtrudeEdgeOptions()
+options.ExtrudeType = ExtrudeType.ForceIndependent
+result = ExtrudeEdges.Execute(selection, MM(-middleoffset/2), options)
+# EndBlock
+
+# Delete Selection
+selection = Selection.Create(GetRootPart().GetChildren[IDocObject]()[-1])
+result = Delete.Execute(selection)
+# EndBlock
+
+#-------------------------------------------------
+# Copy items2
+result = Copy.Execute(EdgeSelection.Create(GetRootPart().Bodies[0].Edges[0]))
+# EndBlock
+
+# Extrude 1 Edge
+selection = Selection.Create(GetRootPart().Curves[0])
+options = ExtrudeEdgeOptions()
+options.ExtrudeType = ExtrudeType.ForceIndependent
+result = ExtrudeEdges.Execute(selection, MM(middleoffset/2), options)
+# EndBlock
+
+
+# Delete Selection
+selection = Selection.Create(GetRootPart().Curves[0])
+result = Delete.Execute(selection)
+# EndBlock
+
+#-------------------------------------------------
+
+# Copy items3
+result = Copy.Execute(EdgeSelection.Create(GetRootPart().Bodies[0].Edges[4]))
+# EndBlock
+
+# Extrude 1 Edge
+selection = Selection.Create(GetRootPart().Curves[0])
+options = ExtrudeEdgeOptions()
+options.ExtrudeType = ExtrudeType.ForceIndependent
+result = ExtrudeEdges.Execute(selection, MM(middleoffset/2), options)
+# EndBlock
+
+# Delete Selection
+selection = Selection.Create(GetRootPart().Curves[0])
+result = Delete.Execute(selection)
+# EndBlock
+
+#-------------------------------------------------
+
+# Copy items4
+result = Copy.Execute(EdgeSelection.Create(GetRootPart().Bodies[0].Edges[3]))
+# EndBlock
+
+# Extrude 1 Edge
+selection = Selection.Create(GetRootPart().Curves[0])
+options = ExtrudeEdgeOptions()
+options.ExtrudeType = ExtrudeType.ForceIndependent
+result = ExtrudeEdges.Execute(selection, MM(-middleoffset/2), options)
+# EndBlock
+
+# Delete Selection
+selection = Selection.Create(GetRootPart().Curves[0])
+result = Delete.Execute(selection)
+# EndBlock
+
+#-------------------------------------------------
+
+# Copy items5
+result = Copy.Execute(EdgeSelection.Create(GetRootPart().Bodies[0].Edges[2]))
+# EndBlock
+
+# Extrude 1 Edge
+selection = Selection.Create(GetRootPart().Curves[0])
+options = ExtrudeEdgeOptions()
+options.ExtrudeType = ExtrudeType.ForceIndependent
+result = ExtrudeEdges.Execute(selection, MM(middleoffset/2), options)
+# EndBlock
+
+# Delete Selection
+selection = Selection.Create(GetRootPart().Curves[0])
+result = Delete.Execute(selection)
+# EndBlock
+
+#-------------------------------------------------
+
+# Copy items6
+result = Copy.Execute(EdgeSelection.Create(GetRootPart().Bodies[0].Edges[5]))
+# EndBlock
+
+# Extrude 1 Edge
+selection = Selection.Create(GetRootPart().Curves[0])
+options = ExtrudeEdgeOptions()
+options.ExtrudeType = ExtrudeType.ForceIndependent
+result = ExtrudeEdges.Execute(selection, MM(-middleoffset/2), options)
+# EndBlock
+
+# Delete Selection
+selection = Selection.Create(GetRootPart().Curves[0])
+result = Delete.Execute(selection)
+# EndBlock
+
+#-------------------------------------------------
+
+
+# Merge Bodies
+targets = BodySelection.Create(GetRootPart().Bodies[0])
+tools = BodySelection.Create(GetRootPart().Bodies[3])
+result = Combine.Merge(targets, tools)
+# EndBlock
+
+# Merge Bodies
+targets = BodySelection.Create(GetRootPart().Bodies[0])
+tools = BodySelection.Create(GetRootPart().Bodies[1])
+result = Combine.Merge(targets, tools)
+# EndBlock
+
+# Merge Bodies
+targets = BodySelection.Create(GetRootPart().Bodies[0])
+tools = BodySelection.Create(GetRootPart().Bodies[2])
+result = Combine.Merge(targets, tools)
+# EndBlock
+
+# Merge Bodies
+targets = BodySelection.Create(GetRootPart().Bodies[0])
+tools = BodySelection.Create(GetRootPart().Bodies[1])
+result = Combine.Merge(targets, tools)
+# EndBlock
+
+# Merge Bodies
+targets = BodySelection.Create(GetRootPart().Bodies[0])
+tools = BodySelection.Create(GetRootPart().Bodies[1])
+result = Combine.Merge(targets, tools)
+# EndBlock
+
+# Merge Bodies
+targets = BodySelection.Create(GetRootPart().Bodies[0])
+tools = BodySelection.Create(GetRootPart().Bodies[1])
+result = Combine.Merge(targets, tools)
+# EndBlock
+
+# Create 6 Rounds
+selection = EdgeSelection.Create([GetRootPart().Bodies[0].Edges[1],
+    GetRootPart().Bodies[0].Edges[4],
+    GetRootPart().Bodies[0].Edges[2],
+    GetRootPart().Bodies[0].Edges[3],
+    GetRootPart().Bodies[0].Edges[5],
+    GetRootPart().Bodies[0].Edges[0]])
+options = ConstantRoundOptions()
+result = ConstantRound.Execute(selection, MM(1.39), options, None)
+# EndBlock
+
+# Move
+selection = FaceSelection.Create([GetRootPart().Bodies[0].Faces[12],
+    GetRootPart().Bodies[0].Faces[11],
+    GetRootPart().Bodies[0].Faces[10],
+    GetRootPart().Bodies[0].Faces[9],
+    GetRootPart().Bodies[0].Faces[8],
+    GetRootPart().Bodies[0].Faces[7]])
+options = ConstantRoundOptions()
+result = ConstantRound.Execute(selection, MM(innerrad), options, None)
+# EndBlock
+
+#--------------------------------------------------
+# Create Pattern
+selection = BodySelection.SelectAll()
+data = LinearPatternData()
+data.LinearDirection = Selection.Create(GetRootPart().CoordinateSystems[0].Axes[0])
+data.CountX = xcount
+data.PitchX = MM(2*offset+middleoffset)
+result = Pattern.CreateLinear(selection, data, None)
+# EndBlock
+
+
+
+
+part = GetRootPart()
+allBodies = part.GetAllBodies()
+
+# Create Pattern
+selection = BodySelection.SelectAll()
+data = LinearPatternData()
+data.LinearDirection = Selection.Create(GetRootPart().CoordinateSystems[0].Axes[2])
+data.CountX =zcount
+data.PitchX = MM(offset*2+middleoffset)
+result = Pattern.CreateLinear(selection, data, None)
+# EndBlock
+
+# Create Pattern
+selection = BodySelection.SelectAll()
+data = LinearPatternData()
+data.LinearDirection = Selection.Create(GetRootPart().CoordinateSystems[0].Axes[1])
+data.CountX = ycount
+data.PitchX = MM(offset*2+middleoffset)
+result = Pattern.CreateLinear(selection, data, None)
+# EndBlock
+
+print "Hayrını gör"
+
+
+
+# Thicken 13 Faces
+selection = FaceSelection.Create([GetRootPart().Components[0].Components[0].Components[0].Components[0].Content.Bodies[0].Faces[1],
+	GetRootPart().Components[0].Components[0].Components[0].Components[0].Content.Bodies[0].Faces[3],
+	GetRootPart().Components[0].Components[0].Components[0].Components[0].Content.Bodies[0].Faces[7],
+	GetRootPart().Components[0].Components[0].Components[0].Components[0].Content.Bodies[0].Faces[11],
+	GetRootPart().Components[0].Components[0].Components[0].Components[0].Content.Bodies[0].Faces[9],
+	GetRootPart().Components[0].Components[0].Components[0].Components[0].Content.Bodies[0].Faces[5],
+	GetRootPart().Components[0].Components[0].Components[0].Components[0].Content.Bodies[0].Faces[0],
+	GetRootPart().Components[0].Components[0].Components[0].Components[0].Content.Bodies[0].Faces[4],
+	GetRootPart().Components[0].Components[0].Components[0].Components[0].Content.Bodies[0].Faces[8],
+	GetRootPart().Components[0].Components[0].Components[0].Components[0].Content.Bodies[0].Faces[12],
+	GetRootPart().Components[0].Components[0].Components[0].Components[0].Content.Bodies[0].Faces[10],
+	GetRootPart().Components[0].Components[0].Components[0].Components[0].Content.Bodies[0].Faces[6],
+	GetRootPart().Components[0].Components[0].Components[0].Components[0].Content.Bodies[0].Faces[2]])
+options = ThickenFaceOptions()
+result = ThickenFaces.Execute(selection, Direction.Create(-0.666666666666664, -8.16404235881582E-17, -0.745355992499932), MM(solidify), options)
+# EndBlock
+
+
+
+# Create Datum Plane
+selection = Selection.Create(GetRootPart().CoordinateSystems[0].Axes[2])
+result = DatumPlaneCreator.Create(selection, False, None)
+# EndBlock
+
+# Translate Along Z Handle
+selection = Selection.Create(GetRootPart().DatumPlanes[0])
+direction = Move.GetDirection(selection)
+options = MoveOptions()
+result = Move.Translate(selection, direction, MM(-offset-innerrad), options)
+# EndBlock
+
+
+# Set Sketch Plane
+selection = Selection.Create(GetRootPart().DatumPlanes[0])
+result = ViewHelper.SetSketchPlane(selection, None)
+# EndBlock
+
+# Set New Sketch
+result = SketchHelper.StartConstraintSketching()
+# EndBlock
+
+# Sketch Line
+start = Point2D.Create(MM(0), MM(2.42861286636753E-14))
+end = Point2D.Create(MM(-offset-innerrad), MM(2.42861286636753E-14))
+isConstruction = True
+result = SketchLine.Create(start, end, isConstruction)
+
+baseSel = SelectionPoint.Create(GetRootPart().DatumPlanes[0].Curves[0].GetChildren[ICurvePoint]()[0])
+targetSel = SelectionPoint.Create(GetRootPart().DatumPlanes[0].GetChildren[IDatumLine]()[0])
+
+result = Constraint.CreateCoincident(baseSel, targetSel)
+
+baseSel = SelectionPoint.Create(GetRootPart().DatumPlanes[0].Curves[0].GetChildren[ICurvePoint]()[1])
+targetSel = SelectionPoint.Create(GetRootPart().DatumPlanes[0].GetChildren[IDatumLine]()[0])
+
+result = Constraint.CreateCoincident(baseSel, targetSel)
+
+curveSelList = Selection.Create(GetRootPart().DatumPlanes[0].Curves[0])
+result = Constraint.CreateHorizontal(curveSelList)
+# EndBlock
+
+# Sketch Line
+start = Point2D.Create(MM(-offset-innerrad), MM(2.42861286636753E-14))
+end = Point2D.Create(MM(-offset-innerrad), MM(-6.98571526025549))
+isConstruction = True
+result = SketchLine.Create(start, end, isConstruction)
+
+baseSel = SelectionPoint.Create(GetRootPart().DatumPlanes[0].Curves[1].GetChildren[ICurvePoint]()[0])
+targetSel = SelectionPoint.Create(GetRootPart().DatumPlanes[0].GetChildren[IDatumLine]()[0])
+
+result = Constraint.CreateCoincident(baseSel, targetSel)
+
+baseSel = SelectionPoint.Create(GetRootPart().DatumPlanes[0].Curves[1].GetChildren[ICurvePoint]()[0])
+targetSel = SelectionPoint.Create(GetRootPart().DatumPlanes[0].Curves[0].GetChildren[ICurvePoint]()[1])
+
+result = Constraint.CreateCoincident(baseSel, targetSel)
+
+baseSel = SelectionPoint.Create(GetRootPart().DatumPlanes[0].Curves[1])
+targetSel = SelectionPoint.Create(GetRootPart().DatumPlanes[0].Curves[0])
+
+result = Constraint.CreatePerpendicular(baseSel, targetSel)
+
+baseSel = SelectionPoint.Create(GetRootPart().DatumPlanes[0].Curves[1])
+targetSel = SelectionPoint.Create(GetRootPart().DatumPlanes[0].GetChildren[IDatumLine]()[0])
+
+result = Constraint.CreatePerpendicular(baseSel, targetSel)
+# EndBlock
+
+recx = xcount*2*(offset+innerrad)-offset-innerrad
+print("recx")
+recy = ycount*2*(offset+innerrad)-offset-innerrad
+print("recy")
+# Sketch Rectangle
+point1 = Point2D.Create(MM(-offset-innerrad),MM(-offset-innerrad))
+point2 = Point2D.Create(MM(recx),MM(-offset-innerrad))
+point3 = Point2D.Create(MM(recy),MM(recx))
+result = SketchRectangle.Create(point1, point2, point3)
+# EndBlock
+
+
+# Offset Sketch Curve
+curvesToOffset = Selection.Create([GetRootPart().DatumPlanes[0].Curves[4],
+	GetRootPart().DatumPlanes[0].Curves[3],
+	GetRootPart().DatumPlanes[0].Curves[2],
+	GetRootPart().DatumPlanes[0].Curves[5],
+	GetRootPart().DatumPlanes[0].Curves[1]])
+offsetDistance = MM(-wallthickness)
+result = SketchOffsetCurve.Create(curvesToOffset, offsetDistance)
+# EndBlock
+
+# Solidify Sketch
+mode = InteractionMode.Solid
+result = ViewHelper.SetViewMode(mode, None)
+# EndBlock
+
+zext = zcount*2*(offset+innerrad)
+print("zext")
+
+# Extrude 1 Face
+selection = FaceSelection.Create(GetRootPart().Bodies[0].Faces[1])
+options = ExtrudeFaceOptions()
+options.ExtrudeType = ExtrudeType.Add
+result = ExtrudeFaces.Execute(selection, MM(zext), options)
+# EndBlock
+
+
+# Delete Selection
+selection = FaceSelection.Create(GetRootPart().Bodies[0].Faces[0])
+result = Delete.Execute(selection)
+# EndBlock
+
+# Delete Selection
+selection = Selection.Create(GetRootPart().DatumPlanes[0])
+result = Delete.Execute(selection)
+# EndBlock
+
+
+
+
+"""
+# Create 8 Rounds
+selection = EdgeSelection.Create([GetRootPart().Bodies[0].Edges[17],
+	GetRootPart().Bodies[0].Edges[8],
+	GetRootPart().Bodies[0].Edges[5],
+	GetRootPart().Bodies[0].Edges[19],
+	GetRootPart().Bodies[0].Edges[1],
+	GetRootPart().Bodies[0].Edges[15],
+	GetRootPart().Bodies[0].Edges[3],
+	GetRootPart().Bodies[0].Edges[13]])
+options = ConstantRoundOptions()
+result = ConstantRound.Execute(selection, MM(2.25), options, None)
+# EndBlock
+"""
+# Copy items
+result = Copy.Execute(FaceSelection.Create([GetRootPart().Components[0].Components[0].Components[0].Components[0].Content.Bodies[0].Faces[30],
+	GetRootPart().Components[0].Components[0].Components[0].Components[1].Content.Bodies[0].Faces[30],
+	GetRootPart().Components[0].Components[0].Components[0].Components[2].Content.Bodies[0].Faces[30],
+	GetRootPart().Components[0].Components[1].Components[0].Components[1].Content.Bodies[0].Faces[30],
+	GetRootPart().Components[0].Components[1].Components[0].Components[2].Content.Bodies[0].Faces[30],
+	GetRootPart().Components[0].Components[1].Components[0].Components[0].Content.Bodies[0].Faces[30],
+	GetRootPart().Components[0].Components[2].Components[0].Components[0].Content.Bodies[0].Faces[30],
+	GetRootPart().Components[0].Components[2].Components[0].Components[1].Content.Bodies[0].Faces[30],
+	GetRootPart().Components[0].Components[2].Components[0].Components[2].Content.Bodies[0].Faces[30]]))
+# EndBlock
+
+# Extrude 9 Faces
+selection = FaceSelection.Create([GetRootPart().Bodies[1].Faces[0],
+	GetRootPart().Bodies[2].Faces[0],
+	GetRootPart().Bodies[3].Faces[0],
+	GetRootPart().Bodies[4].Faces[0],
+	GetRootPart().Bodies[5].Faces[0],
+	GetRootPart().Bodies[6].Faces[0],
+	GetRootPart().Bodies[7].Faces[0],
+	GetRootPart().Bodies[8].Faces[0],
+	GetRootPart().Bodies[9].Faces[0]])
+options = ExtrudeFaceOptions()
+options.ExtrudeType = ExtrudeType.Add
+result = ExtrudeFaces.Execute(selection, MM(-2), options)
+# EndBlock
+
+
+# Copy items
+result = Copy.Execute(FaceSelection.Create([GetRootPart().Components[0].Components[0].Components[0].Components[0].Content.Bodies[0].Faces[30],
+	GetRootPart().Components[0].Components[1].Components[0].Components[0].Content.Bodies[0].Faces[30],
+	GetRootPart().Components[0].Components[2].Components[0].Components[0].Content.Bodies[0].Faces[30],
+	GetRootPart().Components[0].Components[2].Components[0].Components[1].Content.Bodies[0].Faces[30],
+	GetRootPart().Components[0].Components[1].Components[0].Components[1].Content.Bodies[0].Faces[30],
+	GetRootPart().Components[0].Components[0].Components[0].Components[1].Content.Bodies[0].Faces[30],
+	GetRootPart().Components[0].Components[0].Components[0].Components[2].Content.Bodies[0].Faces[30],
+	GetRootPart().Components[0].Components[1].Components[0].Components[2].Content.Bodies[0].Faces[30],
+	GetRootPart().Components[0].Components[2].Components[0].Components[2].Content.Bodies[0].Faces[30]]))
+# EndBlock
+
+# Extrude 9 Faces
+selection = FaceSelection.Create([GetRootPart().Bodies[10].Faces[0],
+	GetRootPart().Bodies[11].Faces[0],
+	GetRootPart().Bodies[12].Faces[0],
+	GetRootPart().Bodies[13].Faces[0],
+	GetRootPart().Bodies[14].Faces[0],
+	GetRootPart().Bodies[15].Faces[0],
+	GetRootPart().Bodies[16].Faces[0],
+	GetRootPart().Bodies[17].Faces[0],
+	GetRootPart().Bodies[18].Faces[0]])
+options = ExtrudeFaceOptions()
+options.ExtrudeType = ExtrudeType.Add
+result = ExtrudeFaces.Execute(selection, MM(2), options)
+# EndBlock
